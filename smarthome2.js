@@ -173,26 +173,29 @@ $(".toggle-btn4").click(function(){
   }
   })
 });
-//---------------------Slider--------------------------                          
+  //---------------------Slider--------------------------                          
 const slide_value=document.querySelector("span");
 const input_slide_value=document.querySelector("input");
-
+const volumee=document.getElementById("volumee");
 input_slide_value.oninput = (()=>{
 let value = input_slide_value.value;
-firebase.database().ref("/Phong Bep").update({
+volumee.style.opacity = value/200;
+firebase.database().ref("/Phong Khach").update({
 Vol: value
 });
 slide_value.textContent = value;
 slide_value.style.left = (value/2) + "%";
 });
-firebase.database().ref('/Phong Bep/Vol').on('value', (snapshot) => {
+//-------------------------------------------------
+firebase.database().ref('/Phong Khach/Vol').on('value', (snapshot) => {
 const fb_value = snapshot.val();
 if (fb_value !== null) {
 slide_value.textContent = fb_value;
 slide_value.style.left = (fb_value / 2) + "%";
 input_slide_value.value=fb_value;
+volumee.style.opacity = fb_value/200;
 }
-});                          
+});                         
 //Clock
 let hrs = document.getElementById("hrs");  
 let min = document.getElementById("min");
